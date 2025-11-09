@@ -24,10 +24,16 @@ export default function Cart() {
     );
   }
 
+
+  //confirm Checkout
+  
+
   return (
     <div className="cart-page">
       <div className="cart-container">
         <h2 className="cart-title">Shopping Cart</h2>
+
+        <span><button className="clear-cart-btn" onClick={() => dispatch(clearCart())}> Clear Cart</button></span>
 
       
           <div className="cart-content">
@@ -87,7 +93,7 @@ export default function Cart() {
                 <strong>₹{(totalPrice * 83).toFixed(0)}</strong>
               </div>
               <button className="checkout-btn">Checkout Now</button>
-              <button className="clear-cart-btn" onClick={() => dispatch(clearCart())}> Clear Cart</button>
+
             </div>
           </div>
         
