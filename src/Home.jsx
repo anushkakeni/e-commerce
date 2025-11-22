@@ -1,15 +1,13 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
-
 import { FaHeart, FaShoppingCart } from "react-icons/fa";
-
 import './App.css'
 import ProductDetail from './ProductDetail'
 import Cart from './Cart'
-
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart } from "./redux/cartSlice";
+import axios from "axios";
 
 export default function Home() {
     const [showCart, setShowCart] = useState(false);
@@ -29,10 +27,10 @@ export default function Home() {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await fetch("https://fakestoreapi.com/products");
-                const data = await response.json();
-                setProducts(data);
-                setFilteredProducts(data); // initially display all
+                const response = await axios.get("https://fakestoreapi.com/products");
+                // const data = await response.json();
+                setProducts(response.data);
+                setFilteredProducts(response.data); // initially display all
             } catch (error) {
                 console.error("Error fetching products:", error);
             } finally {
@@ -120,8 +118,9 @@ export default function Home() {
                                 <p className="loading-text">Loading products...</p>
                             ) : (
                                 <div className="product-grid">
-                                    {products.map((item) => (
-                                        <div className="product-card" key={item.id}>
+                                    {filteredProducts.map((item) => (
+                                        <div className="product-card" key={item.id} 
+                                        onClick={() => navigate(`/product/${item.id}`)}>
                                             <img
                                                 src={item.image}
                                                 alt={item.title}
@@ -130,7 +129,10 @@ export default function Home() {
                                             <h3>{item.title}</h3>
                                             <p>₹{(item.price * 83).toFixed(0)}</p> {/* Converts USD to INR approx */}
                                             <div className="btns">
-                                                <button onClick={() => dispatch(addToCart(item))}>
+                                                <button onClick={(e) => {
+                                                e.stopPropagation();
+                                                dispatch(addToCart(item))}
+                                                }>
                                                     Add To Cart
                                                 </button>
                                                 <button>Add To Wishlist</button>
