@@ -1,8 +1,10 @@
-import React from 'react'
+import React from 'react';
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 export default function({onConfirm, onCancel}) {
   const navigate = useNavigate();
+   const dispatch = useDispatch();
 
   return (
     <div className='confirm-window'>
@@ -11,8 +13,8 @@ export default function({onConfirm, onCancel}) {
         <p>Are You Sure You WWant to Place This Order?</p>
 
         <div className='window-button'>
-          <button className='confirm-btn' onclick={onConfirm=() => {navigate("order-placed")}}>Confirm</button>
-          <button className='cancel-btn' onclick={()=> navigate("/cart")}>Cancel</button>
+          <button className='confirm-btn' onClick={onConfirm=() => {navigate("/order-placed")}}>Confirm</button>
+          <button className='cancel-btn' onClick={()=> navigate("/cart")}>Cancel</button>
         </div>
 
       </div>

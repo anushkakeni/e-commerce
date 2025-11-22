@@ -4,7 +4,7 @@ import Cart from './Cart';
 import Home from "./Home";
 import ConfirmOrder from "./ConfirmOrder";
 import OrderPlaced from "./OrderPlaced";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 import { Routes, Route } from "react-router-dom";
 

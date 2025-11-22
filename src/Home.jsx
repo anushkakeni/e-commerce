@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
+import { useNavigate } from "react-router-dom";
 
 import { FaHeart, FaShoppingCart } from "react-icons/fa";
 
@@ -22,6 +23,7 @@ export default function Home() {
     const [loading, setLoading] = useState(true);
 
 
+    const [filteredProducts, setFilteredProducts] = useState([]);
 
     // ✅ Fetch products from FakeStore API
     useEffect(() => {
@@ -30,6 +32,7 @@ export default function Home() {
                 const response = await fetch("https://fakestoreapi.com/products");
                 const data = await response.json();
                 setProducts(data);
+                setFilteredProducts(data); // initially display all
             } catch (error) {
                 console.error("Error fetching products:", error);
             } finally {
@@ -40,38 +43,20 @@ export default function Home() {
         fetchProducts();
     }, []);
 
-    // const products = [
-    //   {
-    //     id: 1,
-    //     name: "Dress 1",
-    //     description: "Beautiful summer dress in floral pattern",
-    //     price: 799,
-    //     image: "Images/dress1.jpeg",
-    //   },
-    //   {
-    //     id: 2,
-    //     name: "Dress 2",
-    //     description: "Elegant party wear dress",
-    //     price: 999,
-    //     image: "Images/dress2.jpeg",
-    //   },
-    //   {
-    //     id: 3,
-    //     name: "Shoes 1",
-    //     description: "Casual sneakers for everyday wear",
-    //     price: 1299,
-    //     image: "Images/shoes1.jpeg",
-    //   },
-    //   {
-    //     id: 4,
-    //     name: "Shoes 3",
-    //     description: "Trendy sports shoes for all occasions",
-    //     price: 1599,
-    //     image: "Images/Shoes3.jpeg",
-    //   },
-    // ];
+
+    //    Filter Category 
+    const filterCategory = (category) => {
+        if (category === "all") {
+            setFilteredProducts(products);
+        } else {
+            const result = products.filter(product => product.category === category);
+            setFilteredProducts(result);
+        }
+    };
 
 
+
+    const navigate = useNavigate();
 
 
 
@@ -116,36 +101,18 @@ export default function Home() {
                         <aside className="sidebar">
                             <h2>Categories</h2>
                             <ul>
-                                <li>All</li>
-                                <li>Clothes</li>
-                                <li>Electronics</li>
-                                <li>Furniture</li>
-                                <li>Shoes</li>
-                                <li>Miscellaneous</li>
+                                <li onClick={() => filterCategory("all")}>All</li>
+                                <li onClick={() => filterCategory("men's clothing")}>Men's Clothing</li>
+                                <li onClick={() => filterCategory("women's clothing")}>Women's Clothing</li>
+                                <li onClick={() => filterCategory("electronics")}>Electronics</li>
+                                 <li onClick={() => filterCategory("jewelery")}>Jewellery</li>
+                                <li onClick={() => filterCategory("shoes")}>Shoes</li>
+                                <li onClick={() => filterCategory("miscellaneous")}>Miscellaneous</li>
                             </ul>
                         </aside>
 
-                        {/* Products */}
-                        {/* <section className="products-section">
-              <h2>Products</h2>
-              <div className="product-grid">
-                {products.map((item) => (
-                  <div className="product-card" key={item.id}>
-                    <img src={item.image} alt={item.name} />
-                    <h3>{item.name}</h3>
-                    <p>₹{item.price}</p>
-                    <div className="btns">
-                      <button onClick={() => dispatch(addToCart(item))}>
-                        Add To Cart
-                      </button>
-                      <button>Add To Wishlist</button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-          </section> */}
 
+                        {/* Products */}
                         <section className="products-section">
                             <h2>Products</h2>
 

@@ -28,6 +28,7 @@ export default function Cart() {
 
 
   //confirm Checkout
+  const navigate = useNavigate();
   
 
   return (
