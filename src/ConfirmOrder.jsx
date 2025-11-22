@@ -1,6 +1,9 @@
 import React from 'react'
+import { useNavigate } from "react-router-dom";
 
 export default function({onConfirm, onCancel}) {
+  const navigate = useNavigate();
+
   return (
     <div className='confirm-window'>
       <div className='confirm-box'>
@@ -8,8 +11,8 @@ export default function({onConfirm, onCancel}) {
         <p>Are You Sure You WWant to Place This Order?</p>
 
         <div className='window-button'>
-          <button className='confirm-btn' onclick={onConfirm}>Confirm</button>
-          <button className='cancel-btn' onclick={onCancel}>Cancel</button>
+          <button className='confirm-btn' onclick={onConfirm=() => {navigate("order-placed")}}>Confirm</button>
+          <button className='cancel-btn' onclick={()=> navigate("/cart")}>Cancel</button>
         </div>
 
       </div>
