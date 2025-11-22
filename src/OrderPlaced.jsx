@@ -14,6 +14,8 @@ export default function OrderPlaced() {
 
   return (
     <div className="success-container">
+      {/* Confetti */}
+      <div className="confetti"></div>
       <div className="success-box">
         <div className="tick-mark">✔</div>
         <h2>Order Placed Successfully!</h2>

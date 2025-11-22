@@ -1,4 +1,6 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart, removeFromCart, clearCart } from "./redux/cartSlice.js";
 // import { removeFromCart, clearCart } from "../redux/cartSlice.js";
@@ -92,7 +94,7 @@ export default function Cart() {
                 <strong>Total Amount</strong>
                 <strong>₹{(totalPrice * 83).toFixed(0)}</strong>
               </div>
-              <button className="checkout-btn">Checkout Now</button>
+              <button className="checkout-btn" onClick={() => navigate("/confirm-order")}>Checkout Now</button>
 
             </div>
           </div>
