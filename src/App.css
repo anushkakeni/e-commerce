@@ -450,11 +450,11 @@ main {
     margin-bottom: 15px;
 }
 
-.cart-item-img {
-    width: "100px";
-    height: "120px";
-    object-fit: "contain";
-    border-radius: "8px";
+.cart-item-img{
+    width: 160px;
+    height: 150px;
+    object-fit: fill;
+    border-radius: 8px;
     position: relative;
     bottom: 20px;
 }

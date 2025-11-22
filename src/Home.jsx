@@ -103,7 +103,7 @@ export default function Home() {
                                 <li onClick={() => filterCategory("men's clothing")}>Men's Clothing</li>
                                 <li onClick={() => filterCategory("women's clothing")}>Women's Clothing</li>
                                 <li onClick={() => filterCategory("electronics")}>Electronics</li>
-                                 <li onClick={() => filterCategory("jewelery")}>Jewellery</li>
+                                <li onClick={() => filterCategory("jewelery")}>Jewellery</li>
                                 <li onClick={() => filterCategory("shoes")}>Shoes</li>
                                 <li onClick={() => filterCategory("miscellaneous")}>Miscellaneous</li>
                             </ul>
@@ -119,8 +119,8 @@ export default function Home() {
                             ) : (
                                 <div className="product-grid">
                                     {filteredProducts.map((item) => (
-                                        <div className="product-card" key={item.id} 
-                                        onClick={() => navigate(`/product/${item.id}`)}>
+                                        <div className="product-card" key={item.id}
+                                            onClick={() => navigate(`/product/${item.id}`,  { state: { product: item }}  )}>
                                             <img
                                                 src={item.image}
                                                 alt={item.title}
@@ -130,8 +130,9 @@ export default function Home() {
                                             <p>₹{(item.price * 83).toFixed(0)}</p> {/* Converts USD to INR approx */}
                                             <div className="btns">
                                                 <button onClick={(e) => {
-                                                e.stopPropagation();
-                                                dispatch(addToCart(item))}
+                                                    e.stopPropagation();
+                                                    dispatch(addToCart(item))
+                                                }
                                                 }>
                                                     Add To Cart
                                                 </button>

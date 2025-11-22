@@ -1,22 +1,40 @@
-import React from 'react'
+import React from 'react';
+import { useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addToCart } from "./redux/cartSlice";
 
 export default function ProductDetail() {
+      const dispatch = useDispatch();
+
+       const { state } = useLocation();
+
+
+       const product = state?.product;
+
+        if (!product) {
+        return (
+            <h2 style={{ padding: "40px" }}~~>
+                No product data found. Please go back to Home.
+            </h2>
+        );
+    }
+
+
     return (
         <div className="product-detail">
             <div className="detail-container">
-                <img src="Images/shoes1.jpeg" alt="Rainbow Glitter High Heels" className="detail-img" />
-                <div className="detail-info">
+             {/* Image */}
+                <img src={product.image}  alt={product.title} className="detail-img" />
 
-                    <p className="category">Shoes</p>
-                    <h2 className="product-name">Rainbow Glitter High Heels</h2>
-                    <div className="rating">⭐⭐⭐⭐⭐</div>
+                {/* Info */}
+                <div className="detail-info">
+                    <p className="category">{product.category}</p>
+                    <h2 className="product-name">{product.title}</h2>
+                    <div className="rating">{product.rating}</div>
 
 
                     <p className="description">
-                        Step into the spotlight with these eye-catching rainbow glitter high heels.
-                        Designed to dazzle, each shoe boasts a kaleidoscope of shimmering colors that
-                        catch and reflect light with every step. Perfect for special occasions or a
-                        night out, these stunners are sure to turn heads and elevate any ensemble.
+                         {product.description}
                     </p>
 
 
@@ -31,10 +49,10 @@ export default function ProductDetail() {
 
 
                     <div className="price-section">
-                        <h3>₹39</h3>
+                        <h3>₹{(product.price * 83).toFixed(0)}</h3>
                         <div className="btns">
                             <button className="wishlist-btn">Add to Wishlist</button>
-                            <button className="cart-btn">Add to Cart</button>
+                            <button className="cart-btn"  onClick={() => dispatch(addToCart(product))}>Add to Cart</button>
                         </div>
                     </div>
 
